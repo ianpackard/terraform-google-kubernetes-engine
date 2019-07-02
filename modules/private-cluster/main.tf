@@ -218,11 +218,11 @@ locals {
   }
 
   cluster_type_output_pod_security_policy_enabled = {
-    regional = element(concat(google_container_cluster.primary.*.pod_security_policy_config.0.enabled, list("")), 0)
-    zonal    = element(concat(google_container_cluster.zonal_primary.*.pod_security_policy_config.0.enabled, list("")), 0)
+    regional = element(concat(google_container_cluster.primary[*].pod_security_policy_config[*].enabled, list("")), 0)
+    zonal    = element(concat(google_container_cluster.zonal_primary[*].pod_security_policy_config[*].enabled, list("")), 0)
   }
 
-  cluster_master_auth_list_layer1 = local.cluster_type_output_master_auth[local.cluster_type]
+  cluster_master_auth:_list_layer1 = local.cluster_type_output_master_auth[local.cluster_type]
   cluster_master_auth_list_layer2 = local.cluster_master_auth_list_layer1[0]
   cluster_master_auth_map         = local.cluster_master_auth_list_layer2[0]
 
